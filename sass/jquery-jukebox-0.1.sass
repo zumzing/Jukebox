@@ -1,0 +1,206 @@
+$gradient-light: #fff
+$gradient-mid: #eee
+$gradient-dark: #ccc
+$gradient-deep: #999
+$tray-height: 100px
+$tray-button-width: 49px
+$controls-height: 40px
+$controls-inset: 50px
+$panel-grooves: #1a1a1a
+$cover-width: 200px
+$cover-height: 100px
+
+@mixin vertical-gradient 
+	background-color: $gradient-light
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($gradient-mid), to($gradient-light))
+	background: -webkit-linear-gradient(top, $gradient-light, $gradient-mid)
+	background: -moz-linear-gradient(top, $gradient-light, $gradient-mid)
+	background: -ms-linear-gradient(top, $gradient-light, $gradient-mid)
+	background: -o-linear-gradient(top, $gradient-light, $gradient-mid)
+	
+@mixin vertical-gradient-over
+	background-color: $gradient-mid
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($gradient-dark), to($gradient-mid))
+	background: -webkit-linear-gradient(top, $gradient-mid, $gradient-dark)
+	background: -moz-linear-gradient(top, $gradient-mid, $gradient-dark)
+	background: -ms-linear-gradient(top, $gradient-mid, $gradient-dark)
+	background: -o-linear-gradient(top, $gradient-mid, $gradient-dark)
+	
+@mixin next-vertical-gradient
+	background-color: $gradient-light
+	background-image: url(../images/tray-next.png)
+	background: url(../images/tray-next.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from($gradient-mid), to($gradient-light))
+	background: url(../images/tray-next.png), -webkit-linear-gradient(top, $gradient-light, $gradient-mid)
+	background: url(../images/tray-next.png), -moz-linear-gradient(top, $gradient-light, $gradient-mid)
+	background: url(../images/tray-next.png), -ms-linear-gradient(top, $gradient-light, $gradient-mid)
+	background: url(../images/tray-next.png), -o-linear-gradient(top, $gradient-light, $gradient-mid)
+	
+@mixin next-vertical-gradient-over
+	background-color: $gradient-mid
+	background-image: url(../images/tray-next.png)
+	background: url(../images/tray-next.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from($gradient-dark), to($gradient-mid))
+	background: url(../images/tray-next.png), -webkit-linear-gradient(top, $gradient-mid, $gradient-dark)
+	background: url(../images/tray-next.png), -moz-linear-gradient(top, $gradient-mid, $gradient-dark)
+	background: url(../images/tray-next.png), -ms-linear-gradient(top, $gradient-mid, $gradient-dark)
+	background: url(../images/tray-next.png), -o-linear-gradient(top, $gradient-mid, $gradient-dark)
+
+@mixin prev-vertical-gradient
+	background-color: $gradient-light
+	background-image: url(../images/tray-prev.png)
+	background: url(../images/tray-prev.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from($gradient-mid), to($gradient-light))
+	background: url(../images/tray-prev.png), -webkit-linear-gradient(top, $gradient-light, $gradient-mid)
+	background: url(../images/tray-prev.png), -moz-linear-gradient(top, $gradient-light, $gradient-mid)
+	background: url(../images/tray-prev.png), -ms-linear-gradient(top, $gradient-light, $gradient-mid)
+	background: url(../images/tray-prev.png), -o-linear-gradient(top, $gradient-light, $gradient-mid)
+	
+@mixin prev-vertical-gradient-over
+	background-color: $gradient-mid
+	background-image: url(../images/tray-prev.png)
+	background: url(../images/tray-prev.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from($gradient-dark), to($gradient-mid))
+	background: url(../images/tray-prev.png), -webkit-linear-gradient(top, $gradient-mid, $gradient-dark)
+	background: url(../images/tray-prev.png), -moz-linear-gradient(top, $gradient-mid, $gradient-dark)
+	background: url(../images/tray-prev.png), -ms-linear-gradient(top, $gradient-mid, $gradient-dark)
+	background: url(../images/tray-prev.png), -o-linear-gradient(top, $gradient-mid, $gradient-dark)
+
+@mixin chrome-gradient 
+	background-color: $gradient-dark
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($gradient-deep), to($gradient-dark))
+	background: -webkit-linear-gradient(top, $gradient-dark, $gradient-deep)
+	background: -moz-linear-gradient(top, $gradient-dark, $gradient-deep)
+	background: -ms-linear-gradient(top, $gradient-dark, $gradient-deep)
+	background: -o-linear-gradient(top, $gradient-dark, $gradient-deep)
+
+@mixin bottom-left-panel
+	border-bottom-left-radius: 10px
+	border-right: 1px solid $panel-grooves
+	
+@mixin bottom-right-panel
+	border-bottom-right-radius: 10px
+	border-left: 1px solid $panel-grooves
+
+@mixin button-icons
+	background-position: center center
+	background-repeat: no-repeat
+
+#jukebox 
+	width: 700px
+	height: 410px
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.4)
+	border-bottom-right-radius: 10px
+	border-bottom-left-radius: 10px
+	overflow: hidden 
+
+#jukebox-billboard
+	width: 700px
+	height: 310px
+	overflow: hidden
+	position: relative
+	
+#jukebox-posters
+	width: 700px
+	height: 620px
+	position: relative
+	
+img.poster
+	position: absolute
+	left: 0
+	top: 0
+	display: none
+	
+#jukebox-controls
+	background: rgba(0, 0, 0, 0.5)
+	position: absolute
+	left: 0
+	right: 0
+	bottom: 0
+	height: $controls-height
+	z-index: 11
+	
+#jukebox-play
+	position: absolute
+	width: $controls-height
+	height: $controls-height
+	background: url(../images/play.png)
+	right: $controls-height + $controls-inset
+	@include button-icons
+	
+#jukebox-play.isPlaying
+	background: url(../images/pause.png)
+	@include button-icons
+		
+#jukebox-forward
+	position: absolute
+	width: $controls-height
+	height: $controls-height
+	background: url(../images/forward.png)
+	right: $controls-inset
+	@include button-icons
+	
+#jukebox-backward
+	position: absolute
+	width: $controls-height
+	height: $controls-height
+	background: url(../images/rewind.png)
+	right: $controls-height * 2 + $controls-inset
+	@include button-icons
+	
+#jukebox-tray
+	position: relative
+
+#jukebox-tray-liner
+	width: 600px
+	height: $tray-height
+	position: absolute
+	left: 50px
+	top: 0
+	overflow: hidden
+	@include chrome-gradient
+	box-shadow: inset 0 5px 5px #666
+
+#jukebox-covers
+	position: absolute
+	left: 0
+
+#jukebox-tray-prev
+	width: $tray-button-width
+	height: $tray-height
+	position: absolute
+	left: 0
+	top: 0
+	background: url(../images/tray-prev.png)
+	@include prev-vertical-gradient
+	@include bottom-left-panel
+	@include button-icons
+	&:hover
+		@include prev-vertical-gradient-over
+		@include button-icons
+
+#jukebox-tray-next
+	width: $tray-button-width
+	height: $tray-height	
+	position: absolute
+	left: 650px
+	top: 0	
+	@include next-vertical-gradient
+	@include bottom-right-panel
+	@include button-icons
+	&:hover
+		@include next-vertical-gradient-over
+		@include button-icons
+	
+.jukebox-cover
+	width: $cover-width
+	height: $cover-height
+	background-repeat: no-repeat
+	float: left
+	&:hover
+		box-shadow: inset 0 0 10px #000
+
+#jukebox-track-info
+	font-family: Arial, Helvetica, sans-serif
+	font-size: 0.75em
+	line-height: 3.3em
+	color: white
+	margin-left: $controls-inset
+	padding: 0
+	
