@@ -80,70 +80,19 @@ var poster = function(params) {
 					$('<div/>').attr('id', 'jukebox-tray').appendTo($target);
 					
 					$('<div/>').attr('id', 'jukebox-tray-prev').bind('click', function(e) {
-/*
-						var clickTarget = $(e.target),
-								event = document.createEvent("Event");
-								
-						e.stopPropagation();
-						e.preventDefault();
-						
-					  event.initEvent('prevClick', true, true);
-					  event.customData = {'idx': clickTarget.attr('data-playlistIdx')}
-					  
-					  e.target.dispatchEvent(event);
 
-						var clickTarget = $(e.target);
-						e.stopPropagation();
-						e.preventDefault();
-						clickTarget.trigger('prevClick', {'idx': clickTarget.attr('data-playlistIdx')});
-*/
 					}).appendTo('#jukebox-tray');
 					
 					$('<div/>').attr('id', 'jukebox-tray-liner').appendTo('#jukebox-tray');
 					$('<div/>').attr('id', 'jukebox-covers').appendTo('#jukebox-tray-liner');
 					
 					$('<div/>').attr('id', 'jukebox-tray-next').bind('click', function(e) {
-/*
-						var clickTarget = $(e.target),
-								event = document.createEvent("Event");
-								
-						e.stopPropagation();
-						e.preventDefault();
-						
-					  event.initEvent('nextClick', true, true);
-					  event.customData = {'idx': clickTarget.attr('data-playlistIdx')}
-					  
-					  window.dispatchEvent(event);
-*/
+
 					}).appendTo('#jukebox-tray');
 
 					for (var i=0; i < len; i++){
 						totalWidth += parseInt($('<a/>').attr('id', 'cover-' + covers[i].idx).addClass('jukebox-cover').attr('data-playlistIdx', covers[i].idx).css('background-image', 'url(' + covers[i].url + ')' ).bind('click', function(e) {
-/*
-						e.stopPropagation();
-						e.preventDefault();
-						
-						var clickTarget = $(e.target),
-							event = document.createEvent("Event");
-						  event.initEvent('coverClick', true, true);
-						  event.customData = {'idx': clickTarget.attr('data-playlistIdx')};
-						  
-						  e.target.dispatchEvent(event);
-						  
-						//_jukebox.play();
-						
-							var clickTarget = $(e.target),
-							event = document.createEvent("Event");
-								
-
 							
-
-							
-						  event.initEvent('coverClick', true, true);
-						  event.customData = {'idx': clickTarget.attr('data-playlistIdx')};
-						  
-						  window.dispatchEvent(event);
-*/							
 						}).appendTo('#jukebox-covers').css('width').replace(/[^0-9]/g, ''));
 					}
 					$('#jukebox-covers').css('width', function() {
@@ -160,31 +109,8 @@ var poster = function(params) {
 				renderTo: function(target) { 
 
 					$('<div/>').attr('id', 'jukebox-play').bind('click', function(e) {
-/*
-						var event = document.createEvent("Event");
-								
-						e.stopPropagation();
-						e.preventDefault();
-						
-					  event.initEvent('play', true, true);
-					  window.dispatchEvent(event);
-*/
+
 					}).appendTo(target);
-/*
-					var canvas = document.getElementById(target);
-					var context = canvas.getContext('2d');
-					
-					
-					context.fillStyle = "rgb(255,255,255)";
-					context.lineWidth = 0;
-					context.beginPath();
-					context.moveTo(0,0);
-					context.lineTo(0,60);
-					context.lineTo(40,30);
-					//context.lineTo(0,0);
-					context.fill();
-					//context.closePath();
-*/
 				}
 			}
 			return that;
@@ -197,14 +123,6 @@ var poster = function(params) {
 				renderTo: function(target) { 
 
 					$('<div/>').attr('id', 'jukebox-forward').bind('click', function(e) {
-/*
-						e.stopPropagation();
-						e.preventDefault();
-						
-						var event = document.createEvent("Event");		
-					  event.initEvent('forward', true, true);					  
-					  window.dispatchEvent(event);
-*/
 					}).appendTo(target);
 				}
 			}
@@ -218,13 +136,6 @@ var poster = function(params) {
 				renderTo: function(target) { 
 					
 					$('<div/>').attr('id', 'jukebox-backward').bind('click', function(e) {
-/*
-						var event = document.createEvent("Event");		
-						e.stopPropagation();
-						e.preventDefault();
-					  event.initEvent('backward', true, true);					  
-					  window.dispatchEvent(event);
-*/
 					}).appendTo(target);
 				}
 			}
@@ -336,20 +247,6 @@ var poster = function(params) {
 				title: title,
 				playlist: playlistIdx,
 				play: function() {
-					/*element.currentTime = 0;
-					console.dir(element);
-					console.log('net: ' + element.networkState);
-					console.log('ready: ' + element.readyState);
-					if(element.readyState === 0) {
-						
-						element.addEventListener('progress', function(e) {
-							console.log('readyState is: ' + element.readyState);
-							console.log('networkState is: ' + element.networkState);
-						}, false);
-						element.load();
-						console.log('Loading');
-					}
-					*/
 					element.play();
 				},
 				pause: function() {
@@ -627,49 +524,7 @@ var poster = function(params) {
 
 			});
 			
-			$(window).bind('posterClick', function(e) {
-			});
-			
-			$(window).bind('coverClick', function(e) {
-/*
-				_state.stop();
-				console.log('controller gets coverClick: ');
-				console.dir(e);
-				var idx = e.originalEvent.customData.idx;
-				_model.setFirstTrackForPlaylist(idx);
-				_view.featurePosterAt(idx);
-				_state.play();
-*/
-			});
-			
-			$(window).bind('nextClick', function(e) {
-/*
-				_model.carouselIdx = ++_model.carouselIdx % _model.carouselPages;
-				navigate();
-*/
-			});
-			
-			$(window).bind('prevClick', function(e) {
-/*
-				if (_model.carouselIdx !== 0)
-				{
-					_model.carouselIdx = --_model.carouselIdx % _model.carouselPages;
-					navigate();
-				}
-*/
-			});
-			
-			$(window).bind('play', function(e) {
-/* 				_state.play(); */
-			});
-			
-			$(window).bind('forward', function(e) {
-/* 				_state.next(); */
-			});
-			
-			$(window).bind('backward', function(e) {
-/* 				_state.prev(); */
-			});
+
 			
 			$('audio').bind('playing', function() {
 				_view.setPlayButtonState(true);
@@ -681,12 +536,48 @@ var poster = function(params) {
 				_view.setText("Click an image below to listen");
 			});
 			
-			$('audio').bind('ended', function() {
+			$('audio').bind('ended', function(e) {
+				console.log('ended: ' + e.target);
 				_view.setPlayButtonState(false);
 				_view.setText("Click an image below to listen");
 				if(_model.autoplay){
 					_state.next();
 				}
+			});
+			
+			$('audio').bind('error', function(e) {
+				console.log('error: ' + e.target);
+				_view.setPlayButtonState(false);
+				_view.setText("An error occured: " + error.message);
+				if(_model.autoplay){
+					_state.next();
+				}
+			});
+			
+			$('audio').bind('emptied', function(e) {
+				console.log('emptied: ' + e.target);
+				_state.stop();
+				_view.setPlayButtonState(false);
+				_view.setText("Data connection lost");
+			});
+			
+			$('audio').bind('abort', function(e) {
+				console.log('abort: ' + e.target);
+				_state.stop();
+				_view.setPlayButtonState(false);
+				_view.setText("Data connection aborted");
+			});
+			
+			$('audio').bind('waiting', function(e) {
+				console.log('waiting: ' + e.target);
+				_view.setText("Waiting for data...");
+			});
+			
+			$('audio').bind('stalled', function(e) {
+				console.log('stalled: ' + e.target);
+				//_state.stop();
+				//_view.setPlayButtonState(false);
+				_view.setText("Data connection stalled");
 			});
 			
 			_view.render();
@@ -717,13 +608,6 @@ var poster = function(params) {
 		
 		return this;
 			
-/*
-		return this.each(function() {
-			var $jukebox = Jukebox(option);
-			var $playlist = $(this).children();
-			//$jukebox.css('background-color', option.bgColor);
-		});
-*/
 	}
 
 	$.fn.jukebox.defaults = {
