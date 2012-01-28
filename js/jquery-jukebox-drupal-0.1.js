@@ -82,9 +82,7 @@ var poster = function(params) {
 					$('<div/>').attr('id', 'jukebox-tray-next').appendTo('#jukebox-tray');
 
 					for (var i=0; i < len; i++){
-						totalWidth += parseInt($('<a/>').attr('id', 'cover-' + covers[i].idx).addClass('jukebox-cover').attr('data-playlistIdx', covers[i].idx).css('background-image', 'url(' + covers[i].url + ')' ).bind('click', function(e) {
-							
-						}).appendTo('#jukebox-covers').css('width').replace(/[^0-9]/g, ''));
+						totalWidth += parseInt($('<a/>').attr('id', 'cover-' + covers[i].idx).addClass('jukebox-cover').attr('data-playlistIdx', covers[i].idx).css('background-image', 'url(' + covers[i].url + ')' ).appendTo('#jukebox-covers').css('width').replace(/[^0-9]/g, ''));
 					}
 					$('#jukebox-covers').css('width', function() {
 						return totalWidth;
