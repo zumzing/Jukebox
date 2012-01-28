@@ -48,12 +48,7 @@ var poster = function(params) {
 				idx: _idx,
 				url: _url,
 				renderTo: function(target) {
-					$('<img>').attr('id', 'poster-' + _idx).addClass('poster').attr('src', _url).attr('data-playlistIdx', _idx).bind('click', function(e) {
-							var clickTarget = $(e.target);
-							e.stopPropagation();
-							e.preventDefault();
-							clickTarget.trigger('posterClick', {'idx': _idx});
-						}).appendTo(target);
+					$('<img>').attr('id', 'poster-' + _idx).addClass('poster').attr('src', _url).attr('data-playlistIdx', _idx).appendTo(target);
 				},
 				show: function() {
 					$('#' + _id).fadeIn(200);
@@ -79,16 +74,12 @@ var poster = function(params) {
 					var totalWidth = 0;
 					$('<div/>').attr('id', 'jukebox-tray').appendTo($target);
 					
-					$('<div/>').attr('id', 'jukebox-tray-prev').bind('click', function(e) {
-
-					}).appendTo('#jukebox-tray');
+					$('<div/>').attr('id', 'jukebox-tray-prev').appendTo('#jukebox-tray');
 					
 					$('<div/>').attr('id', 'jukebox-tray-liner').appendTo('#jukebox-tray');
 					$('<div/>').attr('id', 'jukebox-covers').appendTo('#jukebox-tray-liner');
 					
-					$('<div/>').attr('id', 'jukebox-tray-next').bind('click', function(e) {
-
-					}).appendTo('#jukebox-tray');
+					$('<div/>').attr('id', 'jukebox-tray-next').appendTo('#jukebox-tray');
 
 					for (var i=0; i < len; i++){
 						totalWidth += parseInt($('<a/>').attr('id', 'cover-' + covers[i].idx).addClass('jukebox-cover').attr('data-playlistIdx', covers[i].idx).css('background-image', 'url(' + covers[i].url + ')' ).bind('click', function(e) {
@@ -490,7 +481,7 @@ var poster = function(params) {
 				
 				if(e.target.className === 'jukebox-cover'){
 					_state.stop();
-					console.log('controller gets click: ' + e.target);
+					//console.log('controller gets click: ' + e.target);
 					var idx = e.target.getAttribute('data-playlistidx');
 					_model.setFirstTrackForPlaylist(idx);
 					_view.featurePosterAt(idx);
@@ -524,8 +515,6 @@ var poster = function(params) {
 
 			});
 			
-
-			
 			$('audio').bind('playing', function() {
 				_view.setPlayButtonState(true);
 				_view.setText(_model.getCurrentTrack().title);
@@ -537,7 +526,7 @@ var poster = function(params) {
 			});
 			
 			$('audio').bind('ended', function(e) {
-				console.log('ended: ' + e.target);
+				//console.log('ended: ' + e.target);
 				_view.setPlayButtonState(false);
 				_view.setText("Click an image below to listen");
 				if(_model.autoplay){
@@ -546,7 +535,7 @@ var poster = function(params) {
 			});
 			
 			$('audio').bind('error', function(e) {
-				console.log('error: ' + e.target);
+				//console.log('error: ' + e.target);
 				_view.setPlayButtonState(false);
 				_view.setText("An error occured: " + error.message);
 				if(_model.autoplay){
@@ -555,26 +544,26 @@ var poster = function(params) {
 			});
 			
 			$('audio').bind('emptied', function(e) {
-				console.log('emptied: ' + e.target);
+				//console.log('emptied: ' + e.target);
 				_state.stop();
 				_view.setPlayButtonState(false);
 				_view.setText("Data connection lost");
 			});
 			
 			$('audio').bind('abort', function(e) {
-				console.log('abort: ' + e.target);
+				//console.log('abort: ' + e.target);
 				_state.stop();
 				_view.setPlayButtonState(false);
 				_view.setText("Data connection aborted");
 			});
 			
 			$('audio').bind('waiting', function(e) {
-				console.log('waiting: ' + e.target);
+				//console.log('waiting: ' + e.target);
 				_view.setText("Waiting for data...");
 			});
 			
 			$('audio').bind('stalled', function(e) {
-				console.log('stalled: ' + e.target);
+				//console.log('stalled: ' + e.target);
 				//_state.stop();
 				//_view.setPlayButtonState(false);
 				_view.setText("Data connection stalled");
@@ -586,7 +575,7 @@ var poster = function(params) {
 			// public api
 			var that = {
 				play: function() {
-					console.log('controller play()');
+					//console.log('controller play()');
 					_state.play();
 				}
 			};
