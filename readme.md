@@ -4,14 +4,14 @@ This jQuery plugin came from working with record labels, who often need to displ
 
 ## Usage (See Examples)
 
-1. Once the jukebox JavaScript and CSS files have been added to your HTML page:
+Once the jukebox JavaScript and CSS files have been added to your HTML page:
 
 ```html
 <link rel="stylesheet" href="../css/jquery-jukebox-0.1.css">
 <script src="../js/jquery-jukebox-drupal-0.1.js"></script>
 ```
 
-2. Define your playlist. Using new data- attributes to specify cover and poster artwork, and track titles:
+Define your playlist. Using new data- attributes to specify cover and poster artwork, and track titles:
 
 ```html
 <div id="playlist-01" class="jukebox-playlist" data-cover-art="images/covers/playlist-01.jpg" data-poster-art="images/posters/playlist-01.jpg">
@@ -32,12 +32,12 @@ This jQuery plugin came from working with record labels, who often need to displ
 </div>
 ```
 
-3. Add a div with an id or jukebox
+Add a div with an id or jukebox
 
 ```html
 <div id="jukebox"></div>
 ```
-4. Call jukebox() from your document.ready handler with options
+Call jukebox() from your document.ready handler with options
 
 
 ```html
