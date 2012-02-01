@@ -1,8 +1,8 @@
 $(function() {
 	
-	$('.playlist').jukebox({
+	$('.jukebox-playlist').jukebox({
 		'jukebox': '#jukebox',
-		'autoplay': true
+		'autoplay': false
 	});
 	
 });

@@ -1,3 +1,30 @@
+/**
+ * Copyright (C) 2012 by Nick Procter takealook@zumzing.com
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ * 
+ * Version		0.1
+ * Requires   jQuery 1.2.6 (For compatibility with Drupal 6.x)
+ * Website		http://www.zumzing.com
+ * 
+ */	
+ 
 ;(function($) {
 	
 	$.fn.jukebox = function(option) {
@@ -48,7 +75,12 @@ var poster = function(params) {
 				idx: _idx,
 				url: _url,
 				renderTo: function(target) {
-					$('<img>').attr('id', 'poster-' + _idx).addClass('poster').attr('src', _url).attr('data-playlistIdx', _idx).appendTo(target);
+					$('<img>').attr('id', 'poster-' + _idx).addClass('poster').attr('src', _url).attr('data-playlistIdx', _idx).bind('click', function(e) {
+							var clickTarget = $(e.target);
+							e.stopPropagation();
+							e.preventDefault();
+							clickTarget.trigger('posterClick', {'idx': _idx});
+						}).appendTo(target);
 				},
 				show: function() {
 					$('#' + _id).fadeIn(200);
@@ -74,15 +106,21 @@ var poster = function(params) {
 					var totalWidth = 0;
 					$('<div/>').attr('id', 'jukebox-tray').appendTo($target);
 					
-					$('<div/>').attr('id', 'jukebox-tray-prev').appendTo('#jukebox-tray');
+					$('<div/>').attr('id', 'jukebox-tray-prev').bind('click', function(e) {
+
+					}).appendTo('#jukebox-tray');
 					
 					$('<div/>').attr('id', 'jukebox-tray-liner').appendTo('#jukebox-tray');
 					$('<div/>').attr('id', 'jukebox-covers').appendTo('#jukebox-tray-liner');
 					
-					$('<div/>').attr('id', 'jukebox-tray-next').appendTo('#jukebox-tray');
+					$('<div/>').attr('id', 'jukebox-tray-next').bind('click', function(e) {
+
+					}).appendTo('#jukebox-tray');
 
 					for (var i=0; i < len; i++){
-						totalWidth += parseInt($('<a/>').attr('id', 'cover-' + covers[i].idx).addClass('jukebox-cover').attr('data-playlistIdx', covers[i].idx).css('background-image', 'url(' + covers[i].url + ')' ).appendTo('#jukebox-covers').css('width').replace(/[^0-9]/g, ''));
+						totalWidth += parseInt($('<a/>').attr('id', 'cover-' + covers[i].idx).addClass('jukebox-cover').attr('data-playlistIdx', covers[i].idx).css('background-image', 'url(' + covers[i].url + ')' ).bind('click', function(e) {
+							
+						}).appendTo('#jukebox-covers').css('width').replace(/[^0-9]/g, ''));
 					}
 					$('#jukebox-covers').css('width', function() {
 						return totalWidth;
@@ -388,7 +426,6 @@ var poster = function(params) {
 					return _playlists[idx].tracks.length;
 				}
 			};
-			window.model = that;
 			init();
 			return that;
 		}
@@ -400,9 +437,15 @@ var poster = function(params) {
 						
 			var playingState = {
 				play: function() {
-					_model.getCurrentTrack().pause();
-					_view.setPlayButtonState();
-					_state = readyState;
+					try {
+						var audio = _model.getCurrentTrack();
+						audio.pause();
+						audio.currentTime = 0;
+						_view.setPlayButtonState();
+						_state = readyState;
+					} catch (e) {
+						if(window.console && console.error("Error:" + e));
+					}
 				},
 				stop: function() {
 					var audio = _model.getCurrentTrack();
@@ -424,8 +467,12 @@ var poster = function(params) {
 			
 			var readyState = {
 				play: function() {
-					_model.getCurrentTrack().play();
-					_state = playingState;
+					try {
+						_model.getCurrentTrack().play();
+						_state = playingState;
+					} catch (e) {
+						if(window.console && console.error("Error:" + e));
+					}
 				},
 				stop: function() {
 					// do nothing already stopped
@@ -439,27 +486,10 @@ var poster = function(params) {
 				}
 			}
 			
-			var loadingState = {
-				play: function() {
-					
-				},
-				pause: function() {
-					
-				},
-				stop: function() {
-					
-				}
-			}
-			
 			var initState = {
-				play: function() {
-				},
-				pause: function() {
-					
-				},
-				stop: function() {
-					
-				}
+				play: function() {},
+				pause: function() {},
+				stop: function() {}
 			}
 			
 			var _state = initState,
@@ -475,11 +505,9 @@ var poster = function(params) {
 					
 			// Event handlers
 			$(window).bind('click', function(e) {
-				console.dir(e);
 				
 				if(e.target.className === 'jukebox-cover'){
 					_state.stop();
-					//console.log('controller gets click: ' + e.target);
 					var idx = e.target.getAttribute('data-playlistidx');
 					_model.setFirstTrackForPlaylist(idx);
 					_view.featurePosterAt(idx);
@@ -513,6 +541,8 @@ var poster = function(params) {
 
 			});
 			
+
+			
 			$('audio').bind('playing', function() {
 				_view.setPlayButtonState(true);
 				_view.setText(_model.getCurrentTrack().title);
@@ -524,7 +554,6 @@ var poster = function(params) {
 			});
 			
 			$('audio').bind('ended', function(e) {
-				//console.log('ended: ' + e.target);
 				_view.setPlayButtonState(false);
 				_view.setText("Click an image below to listen");
 				if(_model.autoplay){
@@ -533,38 +562,32 @@ var poster = function(params) {
 			});
 			
 			$('audio').bind('error', function(e) {
-				//console.log('error: ' + e.target);
 				_view.setPlayButtonState(false);
-				_view.setText("An error occured: " + error.message);
-				if(_model.autoplay){
-					_state.next();
-				}
+				_view.setText("An error occured. See log for details.");
+				if(window.console && console.error("Error:" + e));
 			});
 			
 			$('audio').bind('emptied', function(e) {
-				//console.log('emptied: ' + e.target);
 				_state.stop();
 				_view.setPlayButtonState(false);
 				_view.setText("Data connection lost");
+				if(window.console && console.dir(e));
 			});
 			
 			$('audio').bind('abort', function(e) {
-				//console.log('abort: ' + e.target);
 				_state.stop();
 				_view.setPlayButtonState(false);
 				_view.setText("Data connection aborted");
+				if(window.console && console.dir(e));
 			});
 			
 			$('audio').bind('waiting', function(e) {
-				//console.log('waiting: ' + e.target);
 				_view.setText("Waiting for data...");
+				if(window.console && console.dir(e));
 			});
 			
 			$('audio').bind('stalled', function(e) {
-				//console.log('stalled: ' + e.target);
-				//_state.stop();
-				//_view.setPlayButtonState(false);
-				_view.setText("Data connection stalled");
+				if(window.console && console.dir(e));
 			});
 			
 			_view.render();
@@ -573,7 +596,6 @@ var poster = function(params) {
 			// public api
 			var that = {
 				play: function() {
-					//console.log('controller play()');
 					_state.play();
 				}
 			};
