@@ -36,7 +36,7 @@ This jQuery plugin came from working with record labels, who often need to displ
 
 ```html
 <div id="jukebox"></div>
-
+```
 4. Call jukebox() from your document.ready handler with options
 
 
