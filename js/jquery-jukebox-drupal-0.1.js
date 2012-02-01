@@ -564,30 +564,30 @@ var poster = function(params) {
 			$('audio').bind('error', function(e) {
 				_view.setPlayButtonState(false);
 				_view.setText("An error occured. See log for details.");
-				if(window.console && console.error("Error:" + e));
+				//if(window.console && console.error("Error:" + e));
 			});
 			
 			$('audio').bind('emptied', function(e) {
 				_state.stop();
 				_view.setPlayButtonState(false);
 				_view.setText("Data connection lost");
-				if(window.console && console.dir(e));
+				//if(window.console && console.dir(e));
 			});
 			
 			$('audio').bind('abort', function(e) {
 				_state.stop();
 				_view.setPlayButtonState(false);
 				_view.setText("Data connection aborted");
-				if(window.console && console.dir(e));
+				//if(window.console && console.dir(e));
 			});
 			
 			$('audio').bind('waiting', function(e) {
 				_view.setText("Waiting for data...");
-				if(window.console && console.dir(e));
+				//if(window.console && console.dir(e));
 			});
 			
 			$('audio').bind('stalled', function(e) {
-				if(window.console && console.dir(e));
+				//if(window.console && console.dir(e));
 			});
 			
 			_view.render();
