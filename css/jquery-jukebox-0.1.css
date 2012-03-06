@@ -5,6 +5,11 @@
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
   overflow: hidden; }
+  
+.jukebox-playlist {
+	width: 0;
+	height: 0;
+}
 
 #jukebox-billboard {
   width: 700px;
@@ -132,7 +137,8 @@ img.poster {
   border-left: 1px solid #1a1a1a;
   background-position: center center;
   background-repeat: no-repeat; }
-  #jukebox-tray-next:hover {
+
+#jukebox-tray-next:hover {
     background-color: #eeeeee;
     background-image: url(../images/tray-next.png);
     background: url(../images/tray-next.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(#cccccc), to(#eeeeee));
@@ -141,7 +147,8 @@ img.poster {
     background: url(../images/tray-next.png), -ms-linear-gradient(top, #eeeeee, #cccccc);
     background: url(../images/tray-next.png), -o-linear-gradient(top, #eeeeee, #cccccc);
     background-position: center center;
-    background-repeat: no-repeat; }
+    background-repeat: no-repeat; 
+}
 
 .jukebox-cover {
   width: 200px;
